@@ -2,9 +2,10 @@ from matplotlib import pyplot as plt
 from numpy import log
 from pickle import load
 from sklearn.linear_model import LinearRegression
+from tqdm import tqdm
 
 
-def calc_line_tension(k_b, temperature):
+def calc_line_tension():
     start_k = 1
     end_k = 3
     fluctuation_spectra = load(open("outputs/fluctuation_spectra.pkl", 'rb'))
@@ -14,11 +15,13 @@ def calc_line_tension(k_b, temperature):
     height_fluctuation_ft_records = fluctuation_spectra['height_fluctuations_ft']
     k_records = fluctuation_spectra['k']
     avg_perimeters = fluctuation_spectra['avg_perimeters']
+    temperature = fluctuation_spectra['temperature']
 
     line_tensions = []
+    k_b = 1
 
     print("Calculating Line Tension ...")
-    for i in range(num_intervals):
+    for i in tqdm(range(num_intervals)):
         start_frame = intervals[i]
         end_frame = intervals[i + 1] - 1
 
@@ -58,9 +61,9 @@ def calc_line_tension(k_b, temperature):
     output_string += "Average Line Tension: {}\n".format(avg_line_tensions)
     output_string += "Standard Deviation of Line Tension: {}\n".format(sd_line_tension)
 
-    with open("outputs/line_tension.txt", 'w') as f:
+    with open(f"outputs/line_tension.txt", 'w') as f:
         f.write(output_string)
 
 
 if __name__ == '__main__':
-    calc_line_tension(1, 1)
+    calc_line_tension()

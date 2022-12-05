@@ -207,10 +207,20 @@ def kawasaki_ising():
     lattice = prepare_random_lattice()
     energies = zeros(eq_time + simulation_time)
 
+    if not os.path.exists('outputs'):
+        os.makedirs('outputs')
+
     print("Equilibriating Kawasaki Ising model ...")
     for i in tqdm(range(eq_time)):
         lattice = update(lattice)
         energies[i] = get_energy(lattice)
+
+    adjusted_lattice = get_adjusted_lattice(lattice)
+    plt.figure(figsize=(5, 5))
+    plt.title("Lattice after equilibriation")
+    plt.imshow(adjusted_lattice, origin='lower')
+    plt.savefig('outputs/eq_lattice.png')
+    plt.show()
 
     print("Simulating ...") 
     for i in tqdm(range(simulation_time)):
@@ -218,9 +228,6 @@ def kawasaki_ising():
         energies[i + eq_time] = get_energy(lattice)
         adjusted_lattice = get_adjusted_lattice(lattice)
         data.append(get_adjusted_lattice(lattice))
-
-    if not os.path.exists('outputs'):
-        os.makedirs('outputs')
 
     with open('outputs/lattice_data.pkl', 'wb') as f:
         dump(data, f)
@@ -238,6 +245,7 @@ def kawasaki_ising():
     plt.subplot(133)
     plt.title("Energy Variation")
     plt.plot(energies)
+    plt.savefig('outputs/final_lattice.png')
     plt.show()
 
 
@@ -245,11 +253,11 @@ if __name__ == '__main__':
     print("Program started")
 
     length = 32
-    eq_time = 1000
-    simulation_time = 1000
+    eq_time = 6250
+    simulation_time = 2000
     interaction_energy = 1
     k = 1
-    temperature = 1
+    temperature = 1.25
     beta = 1 / (k * temperature)
 
     global_transport = True
@@ -260,5 +268,5 @@ if __name__ == '__main__':
 
     kawasaki_ising()
     calc_boundaries()
-    calc_fluctuations([0, 200, 400, 600, 800, 1000])
-    calc_line_tension(k, temperature)
+    calc_fluctuations([i * 200 for i in range(11)], temperature)
+    calc_line_tension()

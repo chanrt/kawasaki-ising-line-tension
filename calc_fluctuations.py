@@ -7,7 +7,7 @@ from tqdm import tqdm
 from calc_boundaries import calc_avg_boundary
 
 
-def calc_fluctuations(intervals):
+def calc_fluctuations(intervals, temperature):
     boundaries = load(open("outputs/decision_boundaries.pkl", 'rb'))
     avg_perimeters = []
     height_fluctuation_ft_records = []
@@ -65,14 +65,15 @@ def calc_fluctuations(intervals):
         height_fluctuations_ft = height_fluctuation_ft_records[i]
         plt.loglog(k, height_fluctuations_ft, label=f"Frame {intervals[i]} - {intervals[i + 1] - 1}")
     plt.legend()
-    plt.savefig('outputs/fluctuation_spectra.png')
+    plt.savefig(f'outputs/fluctuation_spectra.png')
     plt.show()
 
     fluctuation_spectra = {
             'k': k_records, 
             'height_fluctuations_ft': height_fluctuation_ft_records, 
             'intervals': intervals, 
-            'avg_perimeters': avg_perimeters
+            'avg_perimeters': avg_perimeters,
+            'temperature': temperature,
         }
     dump(fluctuation_spectra, open('outputs/fluctuation_spectra.pkl', 'wb'))
 
