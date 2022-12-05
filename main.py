@@ -210,6 +210,12 @@ def kawasaki_ising():
     if not os.path.exists('outputs'):
         os.makedirs('outputs')
 
+    plt.figure(figsize=(5, 5))
+    plt.title("Initial lattice")
+    plt.imshow(lattice, origin='lower')
+    plt.savefig('outputs/initial_lattice.png')
+    plt.show()    
+
     print("Equilibriating Kawasaki Ising model ...")
     for i in tqdm(range(eq_time)):
         lattice = update(lattice)
@@ -253,11 +259,11 @@ if __name__ == '__main__':
     print("Program started")
 
     length = 32
-    eq_time = 6250
+    eq_time = 5000
     simulation_time = 2000
     interaction_energy = 1
     k = 1
-    temperature = 1.25
+    temperature = 1
     beta = 1 / (k * temperature)
 
     global_transport = True

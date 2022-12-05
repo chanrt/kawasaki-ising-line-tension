@@ -48,6 +48,8 @@ def calc_line_tension():
 
         plt.figure()
         plt.title("Line Tension Calculation ({} - {} frames)".format(start_frame, end_frame))
+        plt.xlabel("1 / k^2")
+        plt.ylabel("$ \langle | h (k) |^2 \\rangle $")
         plt.scatter(log_inverse_k_sq, log_height_fluctuation_ft)
         plt.plot(log_inverse_k_sq, intercept + slope * log_inverse_k_sq, color='red')
         plt.savefig("outputs/line_tension_{}_{}.png".format(start_frame, end_frame))

@@ -1,0 +1,12 @@
+Line Tension (0 - 199 frames): 0.019577070909306188
+Line Tension (200 - 399 frames): 0.01871584634356121
+Line Tension (400 - 599 frames): 0.017496051097931217
+Line Tension (600 - 799 frames): 0.02551237862022549
+Line Tension (800 - 999 frames): 0.03360866366743981
+Line Tension (1000 - 1199 frames): 0.018228064108723695
+Line Tension (1200 - 1399 frames): 0.017896361290181982
+Line Tension (1400 - 1599 frames): 0.0204339213071003
+Line Tension (1600 - 1799 frames): 0.020192515151432586
+Line Tension (1800 - 1999 frames): 0.018390691433719155
+Average Line Tension: 0.021005156392962167
+Standard Deviation of Line Tension: 0.0047324053854925574
