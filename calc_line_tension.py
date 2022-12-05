@@ -15,6 +15,8 @@ def calc_line_tension(k_b, temperature):
     k_records = fluctuation_spectra['k']
     avg_perimeters = fluctuation_spectra['avg_perimeters']
 
+    line_tensions = []
+
     print("Calculating Line Tension ...")
     for i in range(num_intervals):
         start_frame = intervals[i]
@@ -39,13 +41,25 @@ def calc_line_tension(k_b, temperature):
         intercept = model.intercept_
         slope = model.coef_[0]
         line_tension = (k_b * temperature) / (avg_perimeter * slope)
-        print(f"Line Tension between frames {start_frame} and {end_frame}: {line_tension}")
+        line_tensions.append(line_tension)
 
         plt.figure()
         plt.title("Line Tension Calculation ({} - {} frames)".format(start_frame, end_frame))
         plt.scatter(log_inverse_k_sq, log_height_fluctuation_ft)
         plt.plot(log_inverse_k_sq, intercept + slope * log_inverse_k_sq, color='red')
         plt.savefig("outputs/line_tension_{}_{}.png".format(start_frame, end_frame))
+
+    avg_line_tensions = sum(line_tensions) / len(line_tensions)
+    sd_line_tension = (sum([(line_tension - avg_line_tensions) ** 2 for line_tension in line_tensions]) / len(line_tensions)) ** 0.5
+
+    output_string = ""
+    for i in range(len(line_tensions)):
+        output_string += "Line Tension ({} - {} frames): {}\n".format(intervals[i], intervals[i + 1] - 1, line_tensions[i])
+    output_string += "Average Line Tension: {}\n".format(avg_line_tensions)
+    output_string += "Standard Deviation of Line Tension: {}\n".format(sd_line_tension)
+
+    with open("outputs/line_tension.txt", 'w') as f:
+        f.write(output_string)
 
 
 if __name__ == '__main__':
