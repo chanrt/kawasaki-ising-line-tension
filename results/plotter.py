@@ -16,7 +16,7 @@ if __name__ == '__main__':
     print("R^2:", model.score([[temperature] for temperature in temperatures], line_tensions))
 
     plt.figure()
-    plt.title("Variation of Line Tensions with Temperature")
+    plt.title("Variation of Line Tension with Temperature")
     plt.xlabel("Temperature")
     plt.ylabel("Line Tension")
     plt.errorbar(temperatures, line_tensions, yerr=errors, fmt='o', label="data")
