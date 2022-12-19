@@ -13,3 +13,5 @@ The main.py program will:
 3) Calculate height fluctuations with respect to the average
 4) Obtain its power density spectrum and fit on the specified portion of the graph, to calculate line tension
 5) Line tension will be presented to you in mean +/- sd form, in the outputs/line_tension.txt file
+
+![line_tension_vs_temperature](https://user-images.githubusercontent.com/61446958/208427012-aad03acb-7667-4c7a-bd52-87a1f2cf362d.png)
